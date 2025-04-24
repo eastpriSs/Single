@@ -19,9 +19,9 @@ int putchar(int c) {
 void translateSingleToBrainFuck(char *code)
 {
     char table[] = {'>','<','+','-','.',',','[',']'};
-    unsigned char count = 0;
+    unsigned int count = 0;
     putchar('\n');
-    for (unsigned char pc = 0; code[pc]; pc++) {
+    for (unsigned int pc = 0; code[pc]; pc++) {
         if (code[pc] == 's')
             putchar(table[count % 8]);
         count++;
@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
 #endif
 
     putchar('\n');
-    unsigned char count = 0;
-    for (unsigned char pc = 0; code[pc]; pc++) {
+    unsigned int count = 0;
+    for (unsigned int pc = 0; code[pc]; pc++) {
         if (code[pc] == 's')
         {
             switch (count % 8) {
