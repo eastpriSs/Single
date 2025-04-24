@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#define REALESE
+
 int putchar(int c) {  
     DWORD written;  
     WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), &c, 1, &written, NULL);  
