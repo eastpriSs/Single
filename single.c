@@ -6,7 +6,6 @@ int putchar(int c) {
     return (written == 1) ? (unsigned char)c : -1;  
 } 
 
-
 #define TAPE_SIZE 100
 
 #ifndef REALESE
@@ -45,7 +44,6 @@ int main(int argc, char *argv[])
 
     putchar('\n');
     unsigned char count = 0;
-    unsigned char depth = 1;
     for (unsigned char pc = 0; code[pc]; pc++) {
         if (code[pc] == 's')
         {
@@ -57,22 +55,30 @@ int main(int argc, char *argv[])
                 case 4: putchar(*ptr); break;
                 case 5: *ptr = *input ? *(input++) : 0; break;
                 case 6:
-                    if (!*ptr) {
+                    if (*ptr == 0) {
+                        unsigned char depth = 1;
                         while (depth && code[++pc]) {
                             ++count;
-                            if (count % 8 == 6) depth++;
-                            if (count % 8 == 7) depth--;
+                            if (code[pc] == 's') {
+                                if (count % 8 == 6) depth++;
+                                if (count % 8 == 7) depth--;
+                            }
                         }
                     }
                     break;
                 case 7:
-                    if (*ptr) {
+                    if (*ptr != 0) {
+                        unsigned char depth = 1;
                         while (depth && pc > 0) {
-                            pc--;
-                            --count;
-                            if (count % 8 == 7) depth++;
-                            if (count % 8 == 6) depth--;
+                            --pc;
+                            --count;                
+                            if (code[pc] == 's') {
+                                if (count % 8 == 7) depth++;
+                                if (count % 8 == 6) depth--;
+                            }
                         }
+                        --pc;   
+                        continue;
                     }
                     break;
             }
