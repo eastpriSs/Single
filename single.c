@@ -2,10 +2,8 @@
 
 #define REALESE
 
-int putchar(int c) {  
-    DWORD written;  
-    WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), &c, 1, &written, NULL);  
-    return (written == 1) ? (unsigned char)c : -1;  
+void putchar(int c) {  
+    WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), &c, 1, NULL, NULL);  
 } 
 
 #define TAPE_SIZE 100
